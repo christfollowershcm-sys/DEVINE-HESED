@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user preferences and favorites",
+      "type": "object",
+      "properties": {
+        "favorites": {
+          "type": "object",
+          "properties": {
+            "songs": { "type": "array", "items": { "type": "string" } },
+            "verses": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "fontSize": { "type": "number" },
+            "theme": { "type": "string", "enum": ["light", "dark"] }
+          }
+        }
+      }
+    },
+    "Song": {
+      "title": "Christian Song",
+      "description": "Lyrics and video information for Christian songs",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "lyrics": { "type": "string" },
+        "youtubeId": { "type": "string" },
+        "number": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "lyrics", "youtubeId"]
+    },
+    "Devotion": {
+      "title": "Daily Devotion",
+      "description": "Daily updated Christian devotion content",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "title": { "type": "string" },
+        "text": { "type": "string" },
+        "verseTelugu": { "type": "string" },
+        "verseEnglish": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["date", "title", "text", "verseTelugu", "verseEnglish"]
+    },
+    "BibleVerse": {
+      "title": "Bible Verse",
+      "description": "A single verse from the Bible",
+      "type": "object",
+      "properties": {
+        "book": { "type": "string" },
+        "chapter": { "type": "number" },
+        "verse": { "type": "number" },
+        "textTelugu": { "type": "string" },
+        "textEnglish": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User specific data"
+    },
+    "/songs/{songId}": {
+      "schema": "Song",
+      "description": "Collection of Christian songs"
+    },
+    "/devotions/{devotionId}": {
+      "schema": "Devotion",
+      "description": "Daily devotions"
+    }
+  }
+}
